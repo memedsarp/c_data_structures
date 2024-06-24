@@ -15,6 +15,8 @@ void Insertn(int x, int n);
 void Deleten(int n);
 void Reverse();
 void Print();
+void PrintRecursiveReverse(struct Node* temp);
+void PrintRecursive(struct Node* temp);
 
 int main(int argc, char const *argv[])
 {
@@ -54,6 +56,9 @@ int main(int argc, char const *argv[])
   
   Reverse();
   Print();
+  PrintRecursive(head);
+  printf("\n");
+  PrintRecursiveReverse(head);
   return 0;
 }
 
@@ -186,4 +191,24 @@ void Print()
     temp = temp->next;
   }
   printf("\n");
+}
+
+void PrintRecursive(struct Node* temp)
+{
+  if (temp == NULL)
+  {
+    return;
+  }
+  printf("%d ", temp->data);
+  PrintRecursive(temp->next);
+}
+
+void PrintRecursiveReverse(struct Node* temp)
+{
+  if (temp == NULL)
+  {
+    return;
+  }
+  PrintRecursiveReverse(temp->next);
+  printf("%d ", temp->data);
 }
