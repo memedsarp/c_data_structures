@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+// struct node
+
 struct Node
 {
   int data;
@@ -10,6 +12,8 @@ struct Node
 
 struct Node* head;
 
+//function prototypes
+
 void Insert(int x);
 void Insertn(int x, int n);
 void Deleten(int n);
@@ -17,6 +21,8 @@ void Reverse();
 void Print();
 void PrintRecursiveReverse(struct Node* temp);
 void PrintRecursive(struct Node* temp);
+
+// main function
 
 int main(int argc, char const *argv[])
 {
@@ -35,6 +41,8 @@ int main(int argc, char const *argv[])
     Insert(x);
   }
   */
+
+
   //Automated entry
 
   srand(time(NULL));
@@ -45,22 +53,23 @@ int main(int argc, char const *argv[])
   }
 
   Insert(100);
-  Insertn(200, 0);
-  Insertn(300, 0);
-  Insertn(800, 85);
+  Insert(200);
+  Insert(300);
 
   Deleten(85);
   Deleten(0);
 
   Print();
-  
   Reverse();
   Print();
+
   PrintRecursive(head);
-  printf("\n");
   PrintRecursiveReverse(head);
+
   return 0;
 }
+
+// inserts at the end
 
 void Insert(int x)
 {
@@ -80,6 +89,8 @@ void Insert(int x)
     tail->next = temp;
   }
 }
+
+// inserts into given position - if position greater than the length, inserts at the end
 
 void Insertn(int x, int n)
 {
@@ -115,6 +126,8 @@ void Insertn(int x, int n)
   }
 }
 
+// deletes the given position - if position is greater, deletes nothing
+
 void Deleten(int n)
 {
   if (n == 0)
@@ -123,8 +136,13 @@ void Deleten(int n)
     head = temp->next;
     temp->next = NULL;
     free(temp);
+    if (head == NULL)
+    {
+      free(head);
+    }
     return;
-  } 
+  }
+
   struct Node* tail = head;
 
   for(int i=1; i<n; i++)
@@ -139,7 +157,7 @@ void Deleten(int n)
   if (tail->next == NULL)
   {
     return;
-  }
+  } else
   {
     struct Node* temp = tail->next;
     tail->next = tail->next->next;
@@ -148,50 +166,52 @@ void Deleten(int n)
   }
 }
 
+// reverses the linked list
+
 void Reverse()
 {
-  if (head->next != NULL)
-  {
-  struct Node* temp1 = head;
-  struct Node* temp2 = head->next;
-  struct Node* temp3 = head->next->next;
-
-  temp1->next = NULL;
-  while(temp3 != NULL)
-  {    
-    temp2->next = temp1;
-    temp1 = temp2;
-    temp2 = temp3;
-    temp3 = temp3->next;
-  }
-
-  temp2->next = temp1;
-  head = temp2;
-  } else if (head->next == NULL)
+  if (head == NULL)
   {
     return;
-  } else if (head->next->next == NULL)
+  } else if (head->next != NULL)
   {
-    struct Node* temp1 = head;
-    struct Node* temp2 = head->next;
+    struct Node *temp1 = NULL;
+    struct Node *temp2 = head;
+    struct Node *temp3;
 
-    temp2->next = temp1;
-    temp1->next = NULL;
-    head = temp2;
+    while(temp2 != NULL)
+    {    
+      temp3 = temp2->next;
+      temp2->next = temp1;
+      temp1 = temp2;
+      temp2 = temp3;
+    }
+
+    head = temp1;
   }
 }
+
+// prints the elements
 
 void Print()
 {
   struct Node* temp = head;
-  printf("\nThe list is: ");
-  while(temp != NULL)
+  if (head == NULL)
   {
-    printf(" %d", temp->data);
-    temp = temp->next;
+    printf("The list is empty");
+  } else
+  {
+    printf("\nThe list is: ");
+    while(temp != NULL)
+    {
+      printf(" %d", temp->data);
+      temp = temp->next;
+    }
   }
   printf("\n");
 }
+
+// prints the elements using recursion
 
 void PrintRecursive(struct Node* temp)
 {
@@ -203,10 +223,13 @@ void PrintRecursive(struct Node* temp)
   PrintRecursive(temp->next);
 }
 
+// prints the elements in reverse using recursion
+
 void PrintRecursiveReverse(struct Node* temp)
 {
   if (temp == NULL)
   {
+    printf("\n");
     return;
   }
   PrintRecursiveReverse(temp->next);
