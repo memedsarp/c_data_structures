@@ -26,7 +26,7 @@ void PrintRecursive(struct Node* temp);
 
 int main(int argc, char const *argv[])
 {
-  head = NULL;
+  head = (100, NULL);
 
   // Manuel entry
   /*
@@ -59,12 +59,13 @@ int main(int argc, char const *argv[])
   Deleten(85);
   Deleten(0);
 
-  Print();
-  Reverse();
-  Print();
 
+  Reverse();
   PrintRecursive(head);
   PrintRecursiveReverse(head);
+
+
+  Print();
 
   return 0;
 }
@@ -211,12 +212,14 @@ void Print()
   printf("\n");
 }
 
+
 // prints the elements using recursion
 
 void PrintRecursive(struct Node* temp)
 {
   if (temp == NULL)
   {
+    printf("\n");
     return;
   }
   printf("%d ", temp->data);
