@@ -17,8 +17,8 @@ struct Node* head;
 void Insert(int x);
 void Insertn(int x, int n);
 void Deleten(int n);
-void Reverse();
-void Print();
+void Reverse(struct Node* temp);
+void Print(struct Node* temp);
 void PrintRecursiveReverse(struct Node* temp);
 void PrintRecursive(struct Node* temp);
 
@@ -26,6 +26,8 @@ void PrintRecursive(struct Node* temp);
 
 int main(int argc, char const *argv[])
 {
+  free(head);
+  printf("%p\n", &head);
   head = (100, NULL);
 
   // Manuel entry
@@ -56,17 +58,16 @@ int main(int argc, char const *argv[])
   Insert(200);
   Insert(300);
 
-  Deleten(85);
-  Deleten(0);
-
-
-  Reverse();
-  PrintRecursive(head);
+  Deleten(0); 
+ 
+  Reverse(head);
   PrintRecursiveReverse(head);
+  printf("\n");
+  PrintRecursive(head);
+  Print(head);
 
-
-  Print();
-
+  
+  printf("%p\n", &head);
   return 0;
 }
 
@@ -81,6 +82,7 @@ void Insert(int x)
   if (head == NULL)
   {
     head = temp;
+    free(temp);
   } else
   {
     struct Node* tail = head;
@@ -134,50 +136,34 @@ void Deleten(int n)
   if (n == 0)
   {
     struct Node* temp = head;
-    head = temp->next;
-    temp->next = NULL;
-    free(temp);
-    if (head == NULL)
+    head = head->next;
+    free(head);
+  } else {
+    struct Node* tail = head;
+    for(int i=1; i<n; i++)
     {
-      free(head);
+      tail = tail->next;
     }
-    return;
-  }
-
-  struct Node* tail = head;
-
-  for(int i=1; i<n; i++)
-  {
-    if (tail->next == NULL)
+    if (tail->next != NULL)
     {
-      return;
+      struct Node* temp = tail->next;
+      tail->next = tail->next->next;
+      free(tail->next);
     }
-    tail = tail->next;
-  }
-
-  if (tail->next == NULL)
-  {
-    return;
-  } else
-  {
-    struct Node* temp = tail->next;
-    tail->next = tail->next->next;
-    temp->next = NULL;
-    free(temp);
   }
 }
 
 // reverses the linked list
 
-void Reverse()
+void Reverse(struct Node* temp)
 {
-  if (head == NULL)
+  if (temp == NULL)
   {
     return;
-  } else if (head->next != NULL)
+  } else if (temp->next != NULL)
   {
     struct Node *temp1 = NULL;
-    struct Node *temp2 = head;
+    struct Node *temp2 = temp;
     struct Node *temp3;
 
     while(temp2 != NULL)
@@ -194,9 +180,8 @@ void Reverse()
 
 // prints the elements
 
-void Print()
+void Print(struct Node* temp)
 {
-  struct Node* temp = head;
   if (head == NULL)
   {
     printf("The list is empty");

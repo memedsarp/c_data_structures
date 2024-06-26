@@ -10,17 +10,24 @@ struct Node
 
 struct Node* head;
 
+// Function Prototypes
 struct Node* GetNewNode(int x);
 void InsertAtHead(int x);
+void Print(struct Node* temp);
 
 int main(int argc, char const *argv[])
 {
   InsertAtHead(10);
   InsertAtHead(20);
 
-  printf("\n%d", head->data);
-  printf("\n%d", head->next->data);
-  printf("\n%d", head->next->prev->data);
+  printf("%d\n", head->data);
+  printf("%d\n", head->next->data);
+  printf("%d\n", head->next->prev->data);
+
+  Print(head);
+
+  free(head);
+  return 0;
 }
 
 struct Node* GetNewNode(int x)
@@ -31,7 +38,6 @@ struct Node* GetNewNode(int x)
   newNode->next = NULL;
   return newNode;
 }
-
 
 void InsertAtHead(int x)
 {
@@ -47,3 +53,14 @@ void InsertAtHead(int x)
     head = newNode;
   }
 }
+
+void Print(struct Node* temp)
+{
+  printf("The list is: ");
+  while (temp != NULL)
+  {
+    printf("%d ", temp->data);
+    temp = temp->next;
+  }
+}
+
