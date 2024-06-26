@@ -14,6 +14,7 @@ struct Node* head;
 struct Node* GetNewNode(int x);
 void InsertAtHead(int x);
 void Print(struct Node* temp);
+void Deleten(int n);
 
 int main(int argc, char const *argv[])
 {
@@ -62,5 +63,10 @@ void Print(struct Node* temp)
     printf("%d ", temp->data);
     temp = temp->next;
   }
+}
+
+void Deleten(int n)
+{
+  printf("");
 }
 
